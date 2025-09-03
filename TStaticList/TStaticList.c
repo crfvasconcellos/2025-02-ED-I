@@ -32,25 +32,18 @@ bool TStaticList_insert_end(TStaticList* lista, int valor){
     return false;
 }
 bool TStaticList_insert_begin(TStaticList* lista, int valor){
-    if (lista->qty == MAX)
-    {
-        return false;
+    //1. Testar se a lista nao está cheia
+    if(lista!=NULL && !TStaticList_is_full(lista)){
+    //2. Mover os dados para abrir espaço no índice 0
+        for(int j=lista->qty; j>0; j--)
+            lista->data[j] = lista->data[j-1];
+    //3. Inserir o valor no índice 0
+        lista->data[0] = valor;
+    //4. Incrementar a quantidade
+        lista->qty = lista->qty+1;
+        return true;
     }
-
-    for (int i = 0; i < lista->qty; i++)
-    {
-        lista->data[i+1]= lista->data[i];
-    }
-
-    lista->data[0] = valor;
-
-    lista->qty++;
-
-    return true;
-    
-    
-    //TODO: Fazer a implementação usando a política de inserção do início
-    //Olhe a documentação no arquivo .h e o slide 12 para referência
+    return false;
 }
 void TStaticList_print(TStaticList* lista){
     if(lista){
