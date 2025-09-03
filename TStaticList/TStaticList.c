@@ -32,6 +32,23 @@ bool TStaticList_insert_end(TStaticList* lista, int valor){
     return false;
 }
 bool TStaticList_insert_begin(TStaticList* lista, int valor){
+    if (lista->qty == MAX)
+    {
+        return false;
+    }
+
+    for (int i = 0; i < lista->qty; i++)
+    {
+        lista->data[i+1]= lista->data[i];
+    }
+
+    lista->data[0] = valor;
+
+    lista->qty++;
+
+    return true;
+    
+    
     //TODO: Fazer a implementação usando a política de inserção do início
     //Olhe a documentação no arquivo .h e o slide 12 para referência
 }
